@@ -98,6 +98,7 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
         private int _animIDAttack;
+        private int _animIDDash;
 
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
@@ -161,6 +162,7 @@ namespace StarterAssets
             GroundedCheck();
             Move();
             HandleAttack();
+            HandleDash();
         }
 
         private void LateUpdate()
@@ -176,6 +178,7 @@ namespace StarterAssets
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDAttack = Animator.StringToHash("Attack");
+            _animIDDash = Animator.StringToHash("Dash");
         }
 
         private void GroundedCheck()
@@ -398,6 +401,16 @@ namespace StarterAssets
             {
                 _animator.SetTrigger(_animIDAttack);
                 _input.attack = false; // Reset attack input after triggering the animation
+            }
+        }
+
+        private void HandleDash()
+        {
+            if (_input.dash && _hasAnimator)
+            {
+                Debug.Log("Dash triggered"); // Debug log to confirm dash is triggered
+                _animator.SetTrigger(_animIDDash); // Assuming the same trigger for dash
+                _input.dash = false; // Reset dash input after triggering the animation
             }
         }
     }
