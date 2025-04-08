@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
+using System.Collections;
+using System;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -108,6 +111,7 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
 
+
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
@@ -143,6 +147,7 @@ namespace StarterAssets
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
+            
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -399,7 +404,7 @@ namespace StarterAssets
         {
             if (_input.attack && _hasAnimator)
             {
-                _animator.SetTrigger(_animIDAttack);
+                
                 _input.attack = false; // Reset attack input after triggering the animation
             }
         }
