@@ -10,7 +10,6 @@ public class PlayerUI : MonoBehaviour
 
     public void UpdateUI()
     {
-        Debug.Log("UpdateUI 호출됨");
         if (playerStatus != null)
         {
             if (hpBar != null)
