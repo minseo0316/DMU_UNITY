@@ -115,6 +115,7 @@ namespace StarterAssets
 
         // Attack component reference
         private AttackController _attackComponent;
+        private PlayerStatus playerStatus;
 
         private const float _threshold = 0.01f;
 
@@ -152,6 +153,7 @@ namespace StarterAssets
 
             // Attack component reference
             _attackComponent = GetComponent<AttackController>();
+            playerStatus = GetComponent<PlayerStatus>();
             
             // Log warning if Attack component is not found
             if (_attackComponent == null)
@@ -316,7 +318,7 @@ namespace StarterAssets
                 _fallTimeoutDelta = FallTimeout;
 
                 // update animator if using character
-                if(_input.jump == true)
+                if(_input.jump == true && playerStatus.currentSp > 0)
                 {
                     if (_hasAnimator)
                     {
@@ -425,7 +427,7 @@ namespace StarterAssets
 
         private void HandleAttack()
         {
-            if (_input.attack && _hasAnimator)
+            if (_input.attack && _hasAnimator && playerStatus.currentSp > 0)
             {
                 _attackComponent.attackProcess();
                 _input.attack = false;
@@ -434,9 +436,8 @@ namespace StarterAssets
 
         private void HandleDash()
         {
-            if (_input.dash && _hasAnimator)
+            if (_input.dash && _hasAnimator && playerStatus.currentSp > 0)
             {
-                Debug.Log("Dash triggered"); // Debug log to confirm dash is triggered
                 _animator.SetTrigger(_animIDDash); // Assuming the same trigger for dash
                 _input.dash = false; // Reset dash input after triggering the animation
             }
