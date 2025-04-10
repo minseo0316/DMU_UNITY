@@ -310,11 +310,17 @@ namespace StarterAssets
                 _fallTimeoutDelta = FallTimeout;
 
                 // update animator if using character
-                if (_hasAnimator)
+                if(_input.jump == true)
                 {
-                    _animator.SetBool(_animIDJump, false);
-                    _animator.SetBool(_animIDFreeFall, false);
+                    if (_hasAnimator)
+                    {
+                        // _animator.SetBool(_animIDJump, false);
+                        // _animator.SetBool(_animIDFreeFall, false);
+                        _animator.SetTrigger("JumpTrigger");
+                        _input.jump = false; // Reset jump input
+                    }
                 }
+                
 
                 // stop our velocity dropping infinitely when grounded
                 if (_verticalVelocity < 0.0f)
