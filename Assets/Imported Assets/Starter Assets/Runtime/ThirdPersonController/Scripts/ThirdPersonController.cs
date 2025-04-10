@@ -111,6 +111,8 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
 
+        // Attack component reference
+        private AttackController _attackComponent;
 
         private const float _threshold = 0.01f;
 
@@ -145,6 +147,16 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
+
+            // Attack component reference
+            _attackComponent = GetComponent<AttackController>();
+            
+            // Log warning if Attack component is not found
+            if (_attackComponent == null)
+            {
+                Debug.LogWarning("Attack component not found. Ensure the Attack component is attached to the same GameObject.");
+            }
+            
 #if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
             
@@ -386,7 +398,7 @@ namespace StarterAssets
             {
                 if (FootstepAudioClips.Length > 0)
                 {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
+                    var index = UnityEngine.Random.Range(0, FootstepAudioClips.Length);
                     AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                 }
             }
@@ -404,8 +416,9 @@ namespace StarterAssets
         {
             if (_input.attack && _hasAnimator)
             {
-                
-                _input.attack = false; // Reset attack input after triggering the animation
+                //_attackComponent.attackProcess();
+                _animator.SetTrigger(_animIDAttack); // Trigger attack animation
+                _input.attack = false;
             }
         }
 
