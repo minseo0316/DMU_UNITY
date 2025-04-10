@@ -23,6 +23,8 @@ namespace StarterAssets
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
+        
+        public bool canMove = true; // Flag to control movement
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -289,10 +291,14 @@ namespace StarterAssets
 
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-
-            // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            
+           if(canMove)
+           {
+                // move the player
+                _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+                                    new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+           }
+        
 
             // update animator if using character
             if (_hasAnimator)
@@ -314,8 +320,7 @@ namespace StarterAssets
                 {
                     if (_hasAnimator)
                     {
-                        // _animator.SetBool(_animIDJump, false);
-                        // _animator.SetBool(_animIDFreeFall, false);
+                        canMove = false; // Disable movement during jump
                         _animator.SetTrigger("JumpTrigger");
                         _input.jump = false; // Reset jump input
                     }
@@ -422,8 +427,7 @@ namespace StarterAssets
         {
             if (_input.attack && _hasAnimator)
             {
-                //_attackComponent.attackProcess();
-                _animator.SetTrigger(_animIDAttack); // Trigger attack animation
+                _attackComponent.attackProcess();
                 _input.attack = false;
             }
         }
