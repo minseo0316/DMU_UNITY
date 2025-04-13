@@ -19,7 +19,6 @@ public class PlayerUI : MonoBehaviour
             
             if (spBar != null)
             {
-                Debug.Log("SP 바 업데이트: " + playerStatus.currentSp + " / " + playerStatus.maxSp);
                 spBar.fillAmount = playerStatus.currentSp / playerStatus.maxSp;
             }
         }
