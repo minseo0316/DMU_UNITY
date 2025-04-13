@@ -32,6 +32,7 @@ namespace StarterAssets
 
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
+        public float DashCoolDown = 0.5f;
 
         public AudioClip LandingAudioClip;
         public AudioClip[] FootstepAudioClips;
@@ -104,6 +105,7 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
         private int _animIDAttack;
         private int _animIDDash;
+        private float coolDownTimer;
 
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
@@ -178,6 +180,7 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
+            coolDownTimer += Time.deltaTime;
 
             JumpAndGravity();
             GroundedCheck();
@@ -435,11 +438,12 @@ namespace StarterAssets
         }
 
         private void HandleDash()
-        {
-            if (_input.dash && _hasAnimator && playerStatus.currentSp > 0)
+        {  
+            if (_input.dash && _hasAnimator && playerStatus.currentSp > 0 && DashCoolDown < coolDownTimer)
             {
                 _animator.SetTrigger(_animIDDash); // Assuming the same trigger for dash
                 _input.dash = false; // Reset dash input after triggering the animation
+                coolDownTimer = 0;
             }
         }
     }
