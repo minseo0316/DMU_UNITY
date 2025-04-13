@@ -167,7 +167,8 @@ MonoBehaviour:
   currentWeapon: {fileID: 0}
   currentWeaponData: {fileID: 0}
   StartWeaponData: {fileID: 11400000, guid: 4a9765357e2ba4cbd81a02b7f9de1451, type: 2}
-  testWeaponData: {fileID: 11400000, guid: 580ec73593f2e448bb738d6234f6b63a, type: 2}
+  testWeaponData: {fileID: 11400000, guid: 51eb5141e48304403bd4458995aa53f7, type: 2}
+  animator: {fileID: 2011823106}
 --- !u!1 &291587248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,6 +1424,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c735f84b22e7496eb483f8dbfa1c165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2011823106 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1949474416181360329, guid: fba11908a51474268946f0e951a49560, type: 3}
+  m_PrefabInstance: {fileID: 1488909287499649081}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1488909287499649081
 PrefabInstance:
   m_ObjectHideFlags: 0
